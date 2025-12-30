@@ -1,3 +1,289 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root{
+	--bg-deep: #0B0B0B;
+	--neon: #39FF14;
+	--neon-soft: rgba(57,255,20,0.12);
+	--glass-bg: rgba(255,255,255,0.03);
+	--glass-border: rgba(255,255,255,0.06);
+	--muted: #A0A0A0;
+	--primary-2: #2bf304;
+	--accent: #39FF14;
+}
+
+html,body,#root{
+	height:100%;
+}
+
+body{
+	background: radial-gradient(1200px 600px at 10% 10%, rgba(57,255,20,0.03), transparent), var(--bg-deep);
+	color: var(--neon);
+	font-size: 16px;
+	line-height: 1.6;
+	-webkit-font-smoothing:antialiased;
+	-moz-osx-font-smoothing:grayscale;
+	font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+	overflow-y: scroll;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+	display: none;
+}
+
+/* Hero classes */
+.hero-title{
+	animation: glow-pulse 3s ease-in-out infinite;
+}
+
+.hero-title {
+	font-size: clamp(2.5rem, 8vw, 4rem);
+	color: var(--neon);
+}
+
+.hero-sub{
+	font-weight: 400;
+	font-size: 1.1rem;
+	color: rgba(57,255,20,0.8);
+}
+
+/* Override all text colors to neon theme */
+h1, h2, h3, h4, h5, h6 {
+	color: var(--neon);
+}
+
+p, span, li {
+	color: rgba(57,255,20,0.9);
+}
+
+a {
+	color: var(--neon);
+	text-decoration: none;
+	transition: text-shadow 0.3s ease;
+}
+
+a:hover {
+	/* Clean hover without glow */
+}
+
+.icon{
+	display: inline-block;
+	transition: transform 0.3s ease;
+}
+
+.glass-card:hover .icon{
+	transform: scale(1.1) rotate(5deg);
+}
+
+/* Neon text */
+.neon-text{
+	color: var(--neon);
+}
+
+@keyframes glow-pulse{
+	0%, 100%{
+		text-shadow: 0 0 8px rgba(57,255,20,0.25), 0 0 18px rgba(57,255,20,0.12);
+	}
+	50%{
+		text-shadow: 0 0 16px rgba(57,255,20,0.35), 0 0 32px rgba(57,255,20,0.18);
+	}
+}
+
+/* Glass card */
+.glass-card{
+	background: linear-gradient(135deg, rgba(57,255,20,0.05), rgba(57,255,20,0.02));
+	border: 1.5px solid rgba(57,255,20,0.2);
+	backdrop-filter: blur(12px) saturate(130%);
+	-webkit-backdrop-filter: blur(12px) saturate(130%);
+	box-shadow: 0 8px 32px rgba(0,0,0,0.7);
+	border-radius: 16px;
+	transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+	position: relative;
+	overflow: hidden;
+}
+
+.glass-card::before {
+	content: '';
+	position: absolute;
+	top: -50%;
+	left: -50%;
+	width: 200%;
+	height: 200%;
+	background: radial-gradient(circle, rgba(57,255,20,0.1) 0%, transparent 70%);
+	animation: shimmer 3s infinite;
+	pointer-events: none;
+}
+
+.neon-btn{
+	background: linear-gradient(135deg, rgba(57,255,20,0.2), rgba(57,255,20,0.08));
+	color: var(--neon);
+	box-shadow: 0 8px 24px rgba(57,255,20,0.15), 0 0 40px rgba(57,255,20,0.1) inset;
+	border: 1.5px solid rgba(57,255,20,0.3);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	position: relative;
+	overflow: hidden;
+}
+
+.neon-btn::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: -100%;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(90deg, transparent, rgba(57,255,20,0.2), transparent);
+	transition: left 0.5s ease;
+	pointer-events: none;
+}
+
+.neon-btn:hover::before {
+	left: 100%;
+}
+
+.neon-btn:hover{
+	transform: translateY(-3px) scale(1.02);
+	box-shadow: 0 12px 40px rgba(57,255,20,0.25);
+	border-color: rgba(57,255,20,0.4);
+}
+
+/* Outline glow for interactive elements */
+.neon-outline:focus{
+	outline: none;
+	box-shadow: 0 6px 30px rgba(0,0,0,0.6);
+}
+
+/* subtle animated grid background */
+.animated-grid{
+	position: absolute;
+	inset:0;
+	background-image: linear-gradient(transparent 1px, rgba(255,255,255,0.01) 1px), linear-gradient(90deg, transparent 1px, rgba(255,255,255,0.01) 1px);
+	background-size: 80px 80px, 80px 80px;
+	opacity: 0.03;
+	transform: translateZ(0);
+	animation: grid-move 20s linear infinite;
+	pointer-events:none;
+}
+
+@keyframes grid-move{
+	from{background-position:0 0, 0 0}
+	to{background-position:400px 200px, -400px -200px}
+}
+
+/* Navbar animations */
+@keyframes nav-glow {
+	0%, 100% { text-shadow: 0 0 8px rgba(57,255,20,0.3); }
+	50% { text-shadow: 0 0 16px rgba(57,255,20,0.6), 0 0 24px rgba(57,255,20,0.3); }
+}
+
+@keyframes nav-hover {
+	from { transform: translateY(0); }
+	to { transform: translateY(-2px); }
+}
+
+/* Floating animation for cards */
+@keyframes float {
+	0%, 100% { transform: translateY(0px); }
+	50% { transform: translateY(-8px); }
+}
+
+/* Pulse glow animation */
+@keyframes pulse-glow {
+	0%, 100% { box-shadow: 0 0 20px rgba(57,255,20,0.3), inset 0 0 20px rgba(57,255,20,0.05); }
+	50% { box-shadow: 0 0 40px rgba(57,255,20,0.5), inset 0 0 30px rgba(57,255,20,0.1); }
+}
+
+/* Shimmer effect */
+@keyframes shimmer {
+	0% { background-position: -1000px 0; }
+	100% { background-position: 1000px 0; }
+}
+
+/* Social icon sequence animation */
+.social-icon{
+	opacity: 0;
+	transform: translateY(12px) scale(0.98);
+	animation: social-pop 420ms forwards cubic-bezier(0.2,0.9,0.2,1);
+}
+
+@keyframes social-pop{
+	to{ opacity:1; transform: translateY(0) scale(1); }
+}
+
+/* Glow border animation */
+@keyframes glow-border {
+	0%, 100% { box-shadow: 0 0 20px rgba(57,255,20,0.2), inset 0 0 15px rgba(57,255,20,0.05); }
+	50% { box-shadow: 0 0 40px rgba(57,255,20,0.4), inset 0 0 25px rgba(57,255,20,0.1); }
+}
+
+/* Card hover animation */
+.glass-card:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 12px 48px rgba(57,255,20,0.2);
+}
+
+/* Nav items hover */
+header button {
+	transition: all 0.3s ease;
+}
+
+header button:hover {
+	color: var(--neon) !important;
+	animation: nav-hover 0.3s ease forwards;
+}
+
+/* Logo animation */
+header .neon-text {
+	/* Removed glow animation */
+}
+
+/* utility for glowing divider */
+.neon-divider{
+	height:2px;
+	background: linear-gradient(90deg, transparent, rgba(57,255,20,0.22), transparent);
+	filter: drop-shadow(0 6px 18px rgba(57,255,20,0.06));
+}
+
+/* small reflective sheen */
+.reflect:before{
+	content:"";
+	position:absolute;
+	left:12px;
+	right:12px;
+	top:6px;
+	height:30%;
+	background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.01));
+	border-radius:10px;
+	pointer-events:none;
+}
+
+/* Form inputs */
+input[type="text"],
+input[type="email"],
+textarea {
+	width: 100%;
+	padding: 0.75rem;
+	border-radius: 8px;
+	border: 1px solid rgba(255,255,255,0.04);
+	background: rgba(0,0,0,0.45);
+	color: var(--muted);
+	font-family: inherit;
+	transition: all 0.2s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+	outline: none;
+	border-color: rgba(57,255,20,0.25);
+	box-shadow: 0 0 12px rgba(57,255,20,0.1);
+}
+
+textarea {
+	resize: vertical;
+}
+
