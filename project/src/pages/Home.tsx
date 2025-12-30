@@ -2,7 +2,7 @@ import React from 'react';
 import GlossyCard from '../components/GlossyCard';
 import GlossyButton from '../components/GlossyButton';
 
-export default function Home() {
+export default function Home({ onNavigate }: { onNavigate: (path: string) => void }) {
   return (
     <div style={{ padding: '2rem 0' }}>
       <section style={{ marginBottom: '3rem', textAlign: 'center' }}>
@@ -10,10 +10,8 @@ export default function Home() {
         <p className="hero-sub">
           Pastebin Lite is the simplest way to share code snippets, error messages, and text online. No login required.
         </p>
-        <GlossyButton style={{ marginTop: '1rem' }}>
-          <a href="/try" style={{ textDecoration: 'none', color: 'inherit' }}>
-            Try It Now →
-          </a>
+        <GlossyButton style={{ marginTop: '1rem' }} onClick={() => onNavigate('/try')}>
+          Try It Now →
         </GlossyButton>
       </section>
 
@@ -55,10 +53,8 @@ export default function Home() {
             Create a paste and get a shareable link in seconds
           </p>
           <div style={{ marginTop: '.75rem' }}>
-            <GlossyButton>
-              <a href="/try" style={{ textDecoration: 'none', color: 'inherit' }}>
-                Start Creating
-              </a>
+            <GlossyButton onClick={() => onNavigate('/try')}>
+              Start Creating
             </GlossyButton>
           </div>
         </GlossyCard>

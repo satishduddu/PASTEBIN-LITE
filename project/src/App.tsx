@@ -75,7 +75,7 @@ function App() {
       <Header onNavigate={navigate} />
 
       <div className="py-12 px-4">
-        {route.type === 'home' && <Home />}
+        {route.type === 'home' && <Home onNavigate={navigate} />}
         {route.type === 'try' && <TryNow apiUrl={API_URL} />}
         {route.type === 'company' && <Company />}
         {route.type === 'about' && <About />}
