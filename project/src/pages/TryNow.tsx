@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import GlossyCard from '../components/GlossyCard';
 import GlossyButton from '../components/GlossyButton';
 
-export default function TryNow({ apiUrl }: { apiUrl: string }) {
+export default function TryNow({ apiUrl, onNavigate }: { apiUrl: string; onNavigate?: (path: string) => void }) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [loading, setLoading] = useState(false);
@@ -16,9 +16,13 @@ export default function TryNow({ apiUrl }: { apiUrl: string }) {
 
     setLoading(true);
     try {
-      // In a real app, submit to API
+      // In a real app, submit to API. Here we mock a paste id then navigate using SPA navigate if available.
       const paste = { id: Math.random().toString(36).slice(2), title: title || 'Untitled', content };
-      window.location.href = `/paste/${paste.id}`;
+      if (onNavigate) {
+        onNavigate(`/paste/${paste.id}`);
+      } else {
+        window.location.href = `/paste/${paste.id}`;
+      }
     } catch (error) {
       console.error('Error creating paste:', error);
       alert('Failed to create paste');

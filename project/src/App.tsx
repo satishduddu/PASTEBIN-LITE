@@ -12,9 +12,14 @@ import Privacy from './pages/Privacy';
 import Paste from './pages/Paste';
 import Follow from './pages/Follow';
 
-const API_URL = import.meta.env.VITE_SUPABASE_URL
-  ? `${import.meta.env.VITE_SUPABASE_URL}/functions/v1`
-  : '/api';
+const API_URL = (() => {
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+  if (supabaseUrl) {
+    return `${supabaseUrl}/functions/v1`;
+  }
+  // Fallback for local dev without env var
+  return 'http://localhost:54321/functions/v1';
+})();
 
 type Route =
   | { type: 'home' }
@@ -76,13 +81,15 @@ function App() {
 
       <div className="py-12 px-4">
         {route.type === 'home' && <Home onNavigate={navigate} />}
-        {route.type === 'try' && <TryNow apiUrl={API_URL} />}
+        {route.type === 'try' && <TryNow apiUrl={API_URL} onNavigate={navigate} />}
         {route.type === 'company' && <Company />}
         {route.type === 'about' && <About />}
         {route.type === 'contact' && <Contact />}
         {route.type === 'terms' && <Terms />}
         {route.type === 'privacy' && <Privacy />}
-        {route.type === 'paste' && <Paste />}
+        {route.type === 'paste' && (
+          <ViewPaste pasteId={route.id} apiUrl={API_URL} onBack={() => navigate('/')} />
+        )}
         {route.type === 'follow' && <Follow />}
         {route.type === 'view' && (
           <ViewPaste pasteId={route.id} apiUrl={API_URL} onBack={() => navigate('/')} />

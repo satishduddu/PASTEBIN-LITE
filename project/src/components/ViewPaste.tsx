@@ -20,9 +20,12 @@ export function ViewPaste({ pasteId, apiUrl, onBack }: ViewPasteProps) {
 
   useEffect(() => {
     const fetchPaste = async () => {
+      const fetchUrl = `${apiUrl}/fetch-paste/${pasteId}`;
+      console.log(`[ViewPaste] Fetching from: ${fetchUrl}`);
       try {
-        const response = await fetch(`${apiUrl}/fetch-paste/${pasteId}`);
+        const response = await fetch(fetchUrl);
         const data = await response.json();
+        console.log(`[ViewPaste] Response status: ${response.status}`, data);
 
         if (!response.ok) {
           throw new Error(data.error || 'Failed to fetch paste');
@@ -30,7 +33,9 @@ export function ViewPaste({ pasteId, apiUrl, onBack }: ViewPasteProps) {
 
         setPaste(data);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'An error occurred');
+        const errorMsg = err instanceof Error ? err.message : 'An error occurred';
+        console.error(`[ViewPaste] Error:`, errorMsg);
+        setError(errorMsg);
       } finally {
         setLoading(false);
       }
